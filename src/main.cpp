@@ -19,6 +19,7 @@ static uint8_t current_brightness[NUM_STARS] = {0};
 #define TICK_RATE 15 // 15ms update rate 
 #define NON_PWM_TIME_ON 200
 #define NON_PWM_PERIOD 500
+
 void fade_random()
 {
 
@@ -90,7 +91,7 @@ void setup() {
   
 
 
-  Serial.println("Starting code");
+  Serial.println("Fuck you");
 
 }
 
