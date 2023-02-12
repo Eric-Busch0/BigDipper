@@ -2,7 +2,6 @@
 #include <time.h>
 #include <stdint.h>
 
-
 #define ALKAID 11
 #define ALCOR_MIZAR 10
 #define ALIOTH 9
@@ -16,25 +15,24 @@ static uint8_t stars[] = {ALKAID, ALCOR_MIZAR, ALIOTH, MEGREZ, DUBHE, MERAK, PHE
 static uint8_t current_brightness[NUM_STARS] = {0};
 #define MIN_BRIGHTNESS 32
 
-#define TICK_RATE 15 // 15ms update rate 
+#define TICK_RATE 15 // 15ms update rate
 #define NON_PWM_TIME_ON 200
 #define NON_PWM_PERIOD 500
 
 void fade_random()
 {
 
-static uint8_t count = 0;
+  static uint8_t count = 0;
 
-
-for(uint8_t i = 0; i < NUM_STARS; i++)
-{
-    if(digitalPinHasPWM(stars[i]))
+  for (uint8_t i = 0; i < NUM_STARS; i++)
+  {
+    if (digitalPinHasPWM(stars[i]))
     {
 
-      //if we have PWM available we can just use some functions to randomly fade in and out.
+      // if we have PWM available we can just use some functions to randomly fade in and out.
       uint8_t sign = rand() % 64;
 
-      if(sign < 32)
+      if (sign < 32)
       {
         current_brightness[i] -= rand() % 8;
       }
@@ -43,39 +41,36 @@ for(uint8_t i = 0; i < NUM_STARS; i++)
         current_brightness[i] += rand() % 8;
       }
 
-      if(current_brightness[i] < MIN_BRIGHTNESS)
+      if (current_brightness[i] < MIN_BRIGHTNESS)
       {
         current_brightness[i] = MIN_BRIGHTNESS;
       }
 
       analogWrite(stars[i], current_brightness[i]);
-    }  
+    }
     else
     {
       uint16_t time_passed = ++count * TICK_RATE;
 
-      if(time_passed > NON_PWM_TIME_ON)
+      if (time_passed > NON_PWM_TIME_ON)
       {
         digitalWrite(stars[i], 0);
-
       }
       else
       {
         digitalWrite(stars[i], 1);
       }
 
-
-      if(time_passed > NON_PWM_PERIOD)
+      if (time_passed > NON_PWM_PERIOD)
       {
         count = 0;
       }
     }
-
   }
-
 }
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
 
   pinMode(ALKAID, OUTPUT);
@@ -86,20 +81,16 @@ void setup() {
   pinMode(DUBHE, OUTPUT);
   pinMode(MERAK, OUTPUT);
 
+#if 0
   Serial.begin(115200);
-
-  
-
-
   Serial.println("Fuck you");
-
+#endif
 }
 
-void loop() {
+void loop()
+{
 
-  
   fade_random();
   delay(TICK_RATE);
-
-
+  
 }
