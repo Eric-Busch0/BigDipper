@@ -12,8 +12,10 @@
 
 static uint8_t stars[] = {ALKAID, ALCOR_MIZAR, ALIOTH, MEGREZ, DUBHE, MERAK, PHECDA};
 #define NUM_STARS sizeof(stars)
-static uint8_t current_brightness[NUM_STARS] = {0};
+
+
 #define MIN_BRIGHTNESS 32
+static uint8_t current_brightness[NUM_STARS] = {0};
 
 #define TICK_RATE 15 // 15ms update rate
 #define NON_PWM_TIME_ON 200
@@ -92,5 +94,5 @@ void loop()
 
   fade_random();
   delay(TICK_RATE);
-  
+
 }
