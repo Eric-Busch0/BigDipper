@@ -129,10 +129,6 @@ void setup()
   pinMode(DUBHE, OUTPUT);
   pinMode(MERAK, OUTPUT);
 
-#if 0
-  Serial.begin(115200);
-  Serial.println("Fuck you");
-#endif
 }
 
 void loop()
