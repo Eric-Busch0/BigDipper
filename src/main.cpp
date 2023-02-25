@@ -13,16 +13,12 @@
 static uint8_t stars[] = {ALKAID, ALCOR_MIZAR, ALIOTH, MEGREZ, DUBHE, MERAK, PHECDA};
 #define NUM_STARS sizeof(stars)
 
-
 #define MIN_BRIGHTNESS 32
 static uint8_t current_brightness[NUM_STARS] = {0};
 
 #define TICK_RATE 30 // 15ms update rate
 #define NON_PWM_TIME_ON 200
 #define NON_PWM_PERIOD 500
-
-
-
 
 void fade_random()
 {
@@ -76,13 +72,12 @@ void fade_random()
 void breathe()
 {
 
-  static uint8_t count = 0;
   static uint16_t bCount = 0;
   for (uint8_t i = 0; i < NUM_STARS; i++)
   {
     if (digitalPinHasPWM(stars[i]))
     {
-      if(bCount > 255)
+      if (bCount > 255)
       {
         current_brightness[i]--;
       }
@@ -91,9 +86,9 @@ void breathe()
         current_brightness[i]++;
       }
 
-      if(bCount >= 512)
+      if (bCount >= 512)
       {
-        bCount =0;
+        bCount = 0;
       }
       else
       {
@@ -103,9 +98,9 @@ void breathe()
     }
     else
     {
-      uint16_t chance = rand() %100;
+      uint16_t chance = rand() % 100;
 
-      if(chance > 85)
+      if (chance > 85)
       {
         digitalWrite(stars[i], 0);
       }
@@ -113,7 +108,6 @@ void breathe()
       {
         digitalWrite(stars[i], 1);
       }
- 
     }
   }
 }
@@ -128,14 +122,12 @@ void setup()
   pinMode(PHECDA, OUTPUT);
   pinMode(DUBHE, OUTPUT);
   pinMode(MERAK, OUTPUT);
-
 }
 
 void loop()
 {
 
-//  fade_random();
-breathe();
+  //  fade_random();
+  breathe();
   delay(TICK_RATE);
-
 }
